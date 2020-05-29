@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="LEM:war">
+    <output-path>$PROJECT_DIR$/LEM/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>LEM</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="LEM.war">
+      <element id="artifact" artifact-name="LEM:war exploded" />
+    </root>
+  </artifact>
+</component>
