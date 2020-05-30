@@ -7,24 +7,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
+/**
+ * @Package com.usts.lem.model;
+ * @Description 数据表类 便于按照格式传至前端
+ * @Author Haodong Zhao
+ */
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class DataList<T> {
     @Setter
     @Getter
-    private int id;
+    private int total;
     @Setter
     @Getter
-    private String name;
-    @Setter
-    @Getter
-    private String password;
-    @Setter
-    @Getter
-    private String email;
-    @Setter
-    @Getter
-    private boolean role;
+    private List<T> rows;
 
     @Override
     public String toString() {

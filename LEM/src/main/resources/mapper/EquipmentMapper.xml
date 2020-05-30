@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.usts.lem.dao.IEquipmentDao">
+
+    <resultMap type="com.usts.lem.model.Equipment" id="EquipmentResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="spec" jdbcType="VARCHAR" property="specification"/>
+        <result column="price" jdbcType="DOUBLE" property="unitPrice"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="manufacture" jdbcType="VARCHAR" property="manufacture"/>
+        <result column="purchase_date" jdbcType="TIMESTAMP" property="purchaseDate"/>
+        <result column="manager" jdbcType="VARCHAR" property="manager"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.usts.lem.model.Equipment"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into equipment(serial_number, type, name,
+                              spec, price, amount, manufacture,
+                              purchase_date, manager, state)
+        values (#{serialNumber}, #{type}, #{name}, #{specification},
+                #{unitPrice}, #{amount}, #{manufacture},
+                #{purchaseDate}, #{manager}, #{state})
+    </insert>
+
+    <select id="countSpec" resultType="Integer" parameterType="String">
+        select COUNT(*)
+        from equipment
+        where spec = #{spec}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select COUNT(*)
+        from equipment
+    </select>
+
+    <update id="update" parameterType="com.usts.lem.model.Equipment">
+        update equipment
+        set serial_number=#{serialNumber},
+            type=#{type},
+            name=#{name},
+            spec=#{specification},
+            price=#{unitPrice},
+            amount=#{amount},
+            manufacture=#{manufacture},
+            purchase_date=#{purchaseDate},
+            manager=#{manager},
+            state=#{state}
+        where id = #{id}
+    </update>
+
+    <select id="findAllData" resultMap="EquipmentResult"
+            parameterType="Integer">
+        select *
+        from equipment
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+
+    </select>
+
+    <select id="findBySerialNumber" resultMap="EquipmentResult"
+            parameterType="String">
+        select *
+        from equipment
+        where serial_number = #{serialNumber}
+    </select>
+
+    <select id="fuzzSearch" resultMap="EquipmentResult"
+            parameterType="String">
+        select *
+        from equipment
+        where name like concat('%', #{keyWord}, '%')
+           or manager like concat('%', #{keyWord}, '%')
+           or type like concat('%', #{keyWord}, '%')
+           or spec like concat('%', #{keyWord}, '%')
+           or manufacture like concat('%', #{keyWord}, '%')
+           or serial_number like concat('%', #{keyWord}, '%')
+    </select>
+
+
+</mapper>

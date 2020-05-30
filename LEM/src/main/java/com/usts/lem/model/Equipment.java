@@ -1,0 +1,61 @@
+package com.usts.lem.model;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
+
+/**
+ * @Package com.usts.lem.model;
+ * @Description 设备信息类
+ * @Author Haodong Zhao
+ */
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class Equipment {
+    @Setter
+    @Getter
+    private int id;    // 数据库中id
+    @Setter
+    @Getter
+    private String serialNumber;  // 生成的设备号
+    @Setter
+    @Getter
+    private String type; // 型号
+    @Setter
+    @Getter
+    private String name; // 设备名
+    @Setter
+    @Getter
+    private String specification;  // 类型规格
+    @Setter
+    @Getter
+    private double unitPrice; // 单价
+    @Setter
+    @Getter
+    private int amount;  // 数量
+    @Setter
+    @Getter
+    private String manufacture;   // 生产厂家
+    @Setter
+    @Getter
+    private Date purchaseDate;  // 购置日期
+    @Setter
+    @Getter
+    private String manager;   // 经办人
+    @Setter
+    @Getter
+    private int state; // 状态 0-申请 1-正常 2-维修 3-报废
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
+                SerializerFeature.WriteDateUseDateFormat);
+    }
+
+}
