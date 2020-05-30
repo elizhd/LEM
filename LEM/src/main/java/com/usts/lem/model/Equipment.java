@@ -2,6 +2,7 @@ package com.usts.lem.model;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Equipment {
     private String name; // 设备名
     @Setter
     @Getter
-    private String specification;  // 类型规格
+    private String spec;  // 类型
     @Setter
     @Getter
     private double unitPrice; // 单价
@@ -44,13 +45,14 @@ public class Equipment {
     private String manufacture;   // 生产厂家
     @Setter
     @Getter
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date purchaseDate;  // 购置日期
     @Setter
     @Getter
     private String manager;   // 经办人
     @Setter
     @Getter
-    private int state; // 状态 0-申请 1-正常 2-维修 3-报废
+    private int eState; // 状态 0-申请 1-正常 2-维修 3-报废
 
     @Override
     public String toString() {

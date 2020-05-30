@@ -7,17 +7,17 @@ DROP TABLE IF EXISTS equipment;
 
 CREATE TABLE equipment
 (
-    id            int PRIMARY KEY AUTO_INCREMENT,
-    serial_number varchar(64),
-    type          varchar(64),
-    name          varchar(64),
-    spec          varchar(64),
-    price         Double,
-    amount        int,
-    manufacture   varchar(64),
-    purchase_date datetime,
-    manager       varchar(64),
-    state         int
+    id           int PRIMARY KEY AUTO_INCREMENT,
+    serialNumber varchar(64),
+    type         varchar(64),
+    name         varchar(64),
+    spec         varchar(64),
+    unitPrice    Double,
+    amount       int,
+    manufacture  varchar(64),
+    purchaseDate datetime,
+    manager      varchar(64),
+    eState       int
 );
 
 -- ----------------------------

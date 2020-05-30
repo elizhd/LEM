@@ -13,7 +13,13 @@
     <context:component-scan base-package="com.usts.lem.controller"/>
 
     <!-- 开启SpringMVC注解模式 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>

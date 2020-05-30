@@ -48,4 +48,14 @@ public class EquipmentServiceImpl implements IEquipmentService {
     public int count() {
         return equipmentDao.count();
     }
+
+    @Override
+    public int delete(Integer id) {
+        return equipmentDao.delete(id);
+    }
+
+    @Override
+    public Equipment findById(Integer id) {
+        return equipmentDao.findById(id);
+    }
 }

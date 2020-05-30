@@ -64,11 +64,11 @@ public class EquipmentTest {
         equipment.setName("Test Test");
         equipment.setAmount(3);
         equipment.setManager("Test Manager");
-        equipment.setState(1);
+        equipment.setEState(1);
         equipment.setUnitPrice(1.1);
         equipment.setManufacture("Test Manufacture");
-        equipment.setSpecification("其他");
-        equipment.setState(0);
+        equipment.setSpec("其他");
+        equipment.setEState(0);
         equipmentService.insert(equipment);
         equipment = equipmentService.findBySerialNumber("T0001");
         System.out.println(equipment);
@@ -81,6 +81,23 @@ public class EquipmentTest {
         List<Equipment> list = equipmentService.fuzzSearch("显微镜");
         for (Equipment e : list)
             System.out.println(e);
+    }
+
+    @Test
+    public void delete() {
+        int rows = equipmentService.delete(3);
+        if (rows > 0) {
+            System.out.println("您成功删除了" + rows + "条数据！");
+        } else {
+            System.out.println("执行删除操作失败！！！");
+
+        }
+    }
+
+    @Test
+    public void findById() {
+        Equipment equipment = equipmentService.findById(1);
+        System.out.println(equipment);
     }
 
 }

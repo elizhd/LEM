@@ -40,4 +40,22 @@ public interface IMBaseService<T> {
      * @Return int 行数
      */
     int count();
+
+    /**
+     * @Description 删除数据基础函数
+     * @Author Haodong Zhao
+     * @Date 2019/7/5 15:35
+     * @Param id 待删除的数据信息id
+     * @Return int 修改的行数
+     */
+    int delete(Integer id);
+
+    /**
+     * @Description 按数据类id搜索基础函数
+     * @Author Haodong Zhao
+     * @Date 2019/7/5 15:39
+     * @Param id 待搜索的数据信息id
+     * @Return T
+     */
+    T findById(Integer id);
 }
