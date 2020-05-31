@@ -46,9 +46,9 @@ public class EquipmentTest {
     @Test
     public void update() {
         Equipment equipment = equipmentService.findBySerialNumber("A0001");
-        equipment.setAmount(6);
+        System.out.println(equipment);
+        equipment.setManager("Test");
         equipmentService.update(equipment);
-
         equipment = equipmentService.findBySerialNumber("A0001");
         System.out.println(equipment);
 
@@ -62,7 +62,6 @@ public class EquipmentTest {
         equipment.setSerialNumber("T0001");
         equipment.setType("TEST");
         equipment.setName("Test Test");
-        equipment.setAmount(3);
         equipment.setManager("Test Manager");
         equipment.setEState(1);
         equipment.setUnitPrice(1.1);

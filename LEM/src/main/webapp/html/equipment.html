@@ -115,7 +115,6 @@
                 <th data-field="type" data-sortable="true">型号</th>
                 <th data-field="spec" data-sortable="true">类型</th>
                 <th data-field="unitPrice" data-sortable="true">单价</th>
-                <th data-field="amount" data-sortable="true">数量</th>
                 <th data-field="manufacture" data-sortable="true">厂家</th>
                 <th data-field="purchaseDate" data-sortable="true">购置日期</th>
                 <th data-field="manager" data-sortable="true">经办人</th>
@@ -149,10 +148,6 @@
                             <div class="form-group">
                                 <label for="insertPrice">单价</label>
                                 <input type="text" class="form-control" id="insertPrice" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="insertAmount">数量</label>
-                                <input type="text" class="form-control" id="insertAmount" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for="insertMnfct">厂商</label>
@@ -203,10 +198,6 @@
                             <div class="form-group">
                                 <label for="updatePrice">单价</label>
                                 <input type="text" class="form-control" id="updatePrice" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="updateAmount">数量</label>
-                                <input type="text" class="form-control" id="updateAmount" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for="updateMnfct">厂商</label>
@@ -296,9 +287,15 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
+
         $('#insertPDate').datetimepicker({
             lang: 'ch',
-            format: 'yyyy-MM-dd hh:mm:ss'
+            format: 'yyyy-mm-dd hh:mm:ss'
+        });
+
+        $('#updatePDate').datetimepicker({
+            lang: 'ch',
+            format: 'yyyy-mm-dd hh:mm:ss'
         });
 
         $('#logout').click(function () {

@@ -69,7 +69,6 @@ $('#insertSave').click(function () {
     var insertName = $('#insertName').val();
     var insertSpec = $('#insertSpec').val();
     var insertPrice = $('#insertPrice').val();
-    var insertAmount = $('#insertAmount').val();
     var insertMnfc = $('#insertMnfct').val();
     var insertPDate = $('#insertPDate').val();
     console.log(insertPDate + ":00");
@@ -92,7 +91,6 @@ $('#insertSave').click(function () {
             "name": insertName,
             "spec": insertSpec,
             "unitPrice": insertPrice,
-            "amount": insertAmount,
             "manufacture": insertMnfc,
             "purchaseDate": insertPDate,
             "manager": insertManager,
@@ -105,7 +103,6 @@ $('#insertSave').click(function () {
                 $('#insertName').val('');
                 $('#insertSpec').val('');
                 $('#insertPrice').val('');
-                $('#insertAmount').val('');
                 $('#insertMnfct').val('');
                 $('#insertPDate').val('');
                 $('#insertManager').val('');
@@ -226,7 +223,6 @@ $('#updateBtn').click(function () {
         $('#updateName').val(rows[0].name);
         $('#updateSpec').val(rows[0].spec);
         $('#updatePrice').val(rows[0].unitPrice);
-        $('#updateAmount').val(rows[0].amount);
         $('#updateMnfct').val(rows[0].manufacture);
         $('#updatePDate').val(rows[0].purchaseDate);
         $('#updateManager').val(rows[0].manager);
@@ -241,12 +237,11 @@ $('#updateSave').click(function () {
     var updateName = $('#updateName').val();
     var updateSpec = $('#updateSpec').val();
     var updatePrice = $('#updatePrice').val();
-    var updateAmount = $('#updateAmount').val();
     var updateMnfc = $('#updateMnfct').val();
     var updatePDate = $('#updatePDate').val();
     var updateManager = $('#updateManager').val();
     if (updatePDate == "")
-        updatePDate = new Date().pattern("yyyy-MM-dd hh:mm:ss");
+        updatePDate = new Date().pattern("yyyy-mm-dd hh:mm:ss");
     else {
         updatePDate = updatePDate + ":00";
     }
@@ -265,7 +260,6 @@ $('#updateSave').click(function () {
             "name": updateName,
             "spec": updateSpec,
             "unitPrice": updatePrice,
-            "amount": updateAmount,
             "manufacture": updateMnfc,
             "purchaseDate": updatePDate,
             "manager": updateManager,
@@ -278,7 +272,6 @@ $('#updateSave').click(function () {
                 $('#updateName').val('');
                 $('#updateSpec').val('');
                 $('#updatePrice').val('');
-                $('#updateAmount').val('');
                 $('#updateMnfct').val('');
                 $('#updatePDate').val('');
                 $('#updateManager').val('');
@@ -306,7 +299,6 @@ $('#updateSave').click(function () {
             $('#updateName').val('');
             $('#updateSpec').val('');
             $('#updatePrice').val('');
-            $('#updateAmount').val('');
             $('#updateMnfct').val('');
             $('#updatePDate').val('');
             $('#updateManager').val('');

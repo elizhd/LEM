@@ -84,6 +84,7 @@ public class EquipmentController {
             serialNumber += String.format("%04d", specAmount + 1);
         }
         equipment.setSerialNumber(serialNumber);
+        equipment.setEState(1);
 
         JSONObject result = new JSONObject();
 

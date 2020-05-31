@@ -3,10 +3,7 @@ package com.usts.lem.model;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -18,6 +15,7 @@ import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Equipment {
     @Setter
     @Getter
@@ -39,13 +37,10 @@ public class Equipment {
     private double unitPrice; // 单价
     @Setter
     @Getter
-    private int amount;  // 数量
-    @Setter
-    @Getter
     private String manufacture;   // 生产厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
     private Date purchaseDate;  // 购置日期
     @Setter
     @Getter
