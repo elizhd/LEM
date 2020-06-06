@@ -69,7 +69,14 @@
         select *
         from equipment
         where serialNumber = #{serialNumber}
-          and eState = 1
+        and eState = 1
+    </select>
+
+    <select id="findBySerialNumberAll" resultMap="EquipmentResult"
+            parameterType="String">
+        select *
+        from equipment
+        where serialNumber = #{serialNumber}
     </select>
 
     <select id="fuzzSearch" resultMap="EquipmentResult"

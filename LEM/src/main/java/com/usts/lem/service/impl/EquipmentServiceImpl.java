@@ -58,4 +58,9 @@ public class EquipmentServiceImpl implements IEquipmentService {
     public Equipment findById(Integer id) {
         return equipmentDao.findById(id);
     }
+
+    @Override
+    public Equipment findBySerialNumberAll(String serialNumber){
+        return equipmentDao.findBySerialNumberAll(serialNumber);
+    }
 }

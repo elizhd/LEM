@@ -27,4 +27,13 @@ public interface IEquipmentService extends IMBaseService<Equipment> {
      */
     List<Equipment> fuzzSearch(String keyWord);
 
+    /*
+     * @Author:  Tim
+     * @Description //根据设备编号查找所有信息包含维修的
+     * @Date
+     * @Param  * @param serialNumber
+     * @return  Equipment 设备信息
+     **/
+
+    Equipment findBySerialNumberAll(String serialNumber);
 }

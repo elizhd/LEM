@@ -4,7 +4,9 @@ package com.usts.lem.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.usts.lem.model.DataList;
 import com.usts.lem.model.Equipment;
+import com.usts.lem.model.Repair;
 import com.usts.lem.service.IEquipmentService;
+import com.usts.lem.service.IRepairService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,8 @@ public class EquipmentController {
 
     @Resource
     IEquipmentService equipmentService;
-
+    @Resource
+    IRepairService repairService;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -106,6 +109,12 @@ public class EquipmentController {
         try {
             for (String id : idArray) {
                 Equipment te = equipmentService.findById(Integer.valueOf(id));
+                Repair re = new Repair();
+                re.setSerialNumber(te.getSerialNumber());
+                re.setName(te.getName());
+                re.setSpec(te.getSpec());
+                re.setEState("2");
+                repairService.insert(re);
                 te.setEState(2);
                 equipmentService.update(te);
             }

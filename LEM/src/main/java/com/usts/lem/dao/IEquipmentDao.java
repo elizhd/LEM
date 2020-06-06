@@ -16,7 +16,7 @@ public interface IEquipmentDao extends IMBaseDao<Equipment> {
 
 
     /**
-     * @Description 根据设备编号查找
+     * @Description 根据设备编号查找，不包含维修的
      * @Param serialNumber
      * @Return Equipment 设备信息
      */
@@ -29,4 +29,14 @@ public interface IEquipmentDao extends IMBaseDao<Equipment> {
      * @Return List <Equipment> 设备信息
      */
     List<Equipment> fuzzSearch(String keyWord);
+
+    /*
+     * @Author:  Tim
+     * @Description //根据设备编号查找所有信息包含维修的
+     * @Date
+     * @Param  * @param serialNumber
+     * @return  Equipment 设备信息
+     **/
+
+    Equipment findBySerialNumberAll(String serialNumber);
 }
