@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.usts.lem.dao.IApplyDao">
+
+    <resultMap id="ApplyResult" type="com.usts.lem.model.Apply">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="serialNumber" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="unitPrice" jdbcType="DOUBLE" property="unitPrice"/>
+        <result column="manufacture" jdbcType="VARCHAR" property="manufacture"/>
+        <result column="purchaseDate" jdbcType="TIMESTAMP" property="purchaseDate"/>
+        <result column="applytype" jdbcType="INTEGER" property="applytype"/>
+        <result column="applicant" jdbcType="VARCHAR" property="applicant"/>
+        <result column="approver" jdbcType="VARCHAR" property="approver"/>
+        <result column="isvisible" jdbcType="BOOLEAN" property="isvisible"/>
+        <result column="result" jdbcType="BOOLEAN" property="result"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.usts.lem.model.Apply"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into apply(serialNumber,type,name,spec,unitPrice,manufacture,purchaseDate,
+                          applytype,applicant,approver,isvisible,result)
+        values (#{serialNumber},#{type},#{name},#{spec},#{unitPrice}
+               ,#{manufacture},#{purchaseDate},#{applytype},#{applicant}
+               ,#{approver},#{isvisible},#{result})
+    </insert>
+    <select id="count" resultType="Integer">
+        select COUNT(*)
+        from apply
+    </select>
+    <select id="countVisible" resultType="Integer">
+        select COUNT(*)
+        from apply
+        where isvisible = true
+    </select>
+    <update id="updateResult" parameterType="com.usts.lem.model.Apply">
+        update apply
+        set result = #{result},
+            isvisible = false
+        where id = #{id}
+    </update>
+
+    <select id="findAllData" resultMap="ApplyResult"
+            parameterType="Integer">
+        select *
+        from apply
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+    </select>
+
+    <select id="findVisibleData" resultMap="ApplyResult"
+            parameterType="Integer">
+        select *
+        from apply
+        where isvisible = true
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+    </select>
+
+    <select id="findById" resultMap="ApplyResult"
+            parameterType="Integer">
+        select *
+        from apply
+        where id = #{id}
+    </select>
+    <select id="findByApprover" resultMap="ApplyResult"
+            parameterType="String">
+        select *
+        from apply
+        where approver = #{approver}
+    </select>
+</mapper>
