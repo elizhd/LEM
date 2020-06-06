@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.usts.lem.dao.IRepairDao">
+
+    <resultMap id="RepairResult" type="com.usts.lem.model.Repair">
+        <id column="id" javaType="INTEGER" property="id"/>
+        <result column="serialNumber" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="repairFactory" jdbcType="VARCHAR" property="repairFactory"/>
+        <result column="repairCost" jdbcType="DOUBLE" property="repairCost"/>
+        <result column="repairDate" jdbcType="TIMESTAMP" property="repairDate"/>
+        <result column="responsible" jdbcType="VARCHAR" property="responsible"/>
+        <result column="eState" jdbcType="INTEGER" property="eState"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.usts.lem.model.Repair"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into repairInfo(serialNumber,  name,
+                              spec,eState)
+        values (#{serialNumber}, #{name}, #{spec},
+               #{eState})
+    </insert>
+
+    <select id="countSpec" resultType="Integer" parameterType="String">
+        select COUNT(*)
+        from repairInfo
+        where spec = #{spec}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select COUNT(*)
+        from repairInfo
+    </select>
+
+    <update id="update" parameterType="com.usts.lem.model.Repair">
+        update repairInfo
+        set serialNumber=#{serialNumber},
+            name=#{name},
+            spec=#{spec},
+            repairCost=#{repairCost},
+            repairFactory=#{repairFactory},
+            repairDate=#{repairDate},
+            responsible=#{responsible},
+            eState=#{eState}
+        where id = #{id}
+    </update>
+
+    <select id="findAllData" resultMap="RepairResult"
+            parameterType="Integer">
+        select id,serialNumber,name,spec,repairFactory,repairCost,repairDate,responsible,case eState when '1' then '已维修' when '2' then '待维修' end as eState
+        from repairInfo
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+    </select>
+
+    <select id="findBySerialNumber" resultMap="RepairResult"
+            parameterType="String">
+        select *
+        from repairInfo
+        where serialNumber = #{serialNumber}
+    </select>
+
+    <select id="fuzzSearch" resultMap="RepairResult"
+            parameterType="String">
+        select *
+        from repairInfo
+        where name like concat('%', #{keyWord}, '%')
+           or responsible like concat('%', #{keyWord}, '%')
+           or spec like concat('%', #{keyWord}, '%')
+           or repairFactory like concat('%', #{keyWord}, '%')
+           or serialNumber like concat('%', #{keyWord}, '%')
+    </select>
+
+    <select id="findById" resultMap="RepairResult"
+            parameterType="Integer">
+        select *
+        from repairInfo
+        where id = #{id}
+    </select>
+
+</mapper>

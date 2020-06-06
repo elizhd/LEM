@@ -28,6 +28,9 @@ public class Repair {
     private String name; // 设备名
     @Setter
     @Getter
+    private String spec; // 型号
+    @Setter
+    @Getter
     private String repairFactory;   // 修理厂家
     @Setter
     @Getter
@@ -41,7 +44,7 @@ public class Repair {
     private String responsible;   // 责任人
     @Setter
     @Getter
-    private int eState; // 状态 0-申请 1-正常 2-维修 3-报废
+    private String eState; // 状态 0-申请 1-正常 2-维修 3-报废
 
     @Override
     public String toString() {
