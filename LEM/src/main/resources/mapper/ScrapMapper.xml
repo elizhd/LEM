@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.usts.lem.dao.IScrapDao">
+
+    <resultMap type="com.usts.lem.model.Scrap" id="ScrapResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="serialNumber" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="manufacture" jdbcType="VARCHAR" property="manufacture"/>
+        <result column="scrapDate" jdbcType="TIMESTAMP" property="scrapDate"/>
+        <result column="approver" jdbcType="VARCHAR" property="approver"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.usts.lem.model.Scrap"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into scrap(serialNumber, type, name,
+                              spec, manufacture,
+                              scrapDate, approver)
+        values (#{serialNumber}, #{type}, #{name}, #{spec},
+                #{manufacture},
+                #{scrapDate}, #{approver})
+    </insert>
+
+    <select id="countSpec" resultType="Integer" parameterType="String">
+        select COUNT(*)
+        from scrap
+        where spec = #{spec}
+    </select>
+
+    <select id="findAll" resultType="com.usts.lem.model.Scrap"
+            parameterType="Integer">
+        select * from scrap;
+    </select>
+
+    <select id="count" resultType="Integer">
+        select COUNT(*)
+        from scrap
+    </select>
+
+    <select id="findAllData" resultMap="ScrapResult"
+            parameterType="Integer">
+        select *
+        from scrap
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+
+    </select>
+
+    <select id="findBySerialNumber" resultMap="ScrapResult"
+            parameterType="String">
+        select *
+        from scrap
+        where serialNumber = #{serialNumber}
+    </select>
+
+    <select id="fuzzSearch" resultMap="ScrapResult"
+            parameterType="String">
+        select *
+        from scrap
+        where name like concat('%', #{keyWord}, '%')
+           or approver like concat('%', #{keyWord}, '%')
+           or type like concat('%', #{keyWord}, '%')
+           or spec like concat('%', #{keyWord}, '%')
+           or manufacture like concat('%', #{keyWord}, '%')
+           or serialNumber like concat('%', #{keyWord}, '%')
+    </select>
+
+    <select id="findById" resultMap="ScrapResult"
+            parameterType="Integer">
+        select *
+        from scrap
+        where id = #{id}
+    </select>
+
+</mapper>
