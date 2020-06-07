@@ -3,7 +3,10 @@ package com.usts.lem.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.usts.lem.model.Apply;
 import com.usts.lem.model.DataList;
+import com.usts.lem.model.Scrap;
+import com.usts.lem.model.User;
 import com.usts.lem.service.IApplyService;
+import com.usts.lem.service.IScrapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -20,6 +25,8 @@ import java.util.List;
 public class ApplyController {
     @Resource(name = "applyService")
     IApplyService applyService;
+    @Resource(name = "scrapService")
+    IScrapService scrapService;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -91,7 +98,7 @@ public class ApplyController {
     // 同意申请
     @PostMapping(value = "/approval")
     @ResponseBody
-    public void deleteByIds1(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+    public void deleteByIds1(@RequestParam(value = "ids") String ids, HttpServletResponse response,HttpSession session) {
         log.debug("Get ids: " + ids);
         String[] idArray = ids.split(",");
         JSONObject result = new JSONObject();
@@ -101,8 +108,19 @@ public class ApplyController {
                 te.setResult(true);
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
-//                if (te.getApplytype==0){
-//                    //报废表
+                if (te.getApplytype()==0){
+                    Scrap sc = new Scrap();
+                    Date date = new Date();
+                    sc.setSpec(te.getSpec());
+                    sc.setName(te.getName());
+                    sc.setType(te.getType());
+                    sc.setSerialNumber(te.getSerialNumber());
+                    sc.setManufacture(te.getManufacture());
+                    sc.setScrapDate(date);
+                    User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
+                    sc.setApprover(user.getName());
+                    scrapService.insert(sc);
+                }       //报废表
 //                }else {
 //                    //申请表
 //                }
