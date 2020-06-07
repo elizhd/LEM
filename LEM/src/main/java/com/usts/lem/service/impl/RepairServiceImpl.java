@@ -59,5 +59,8 @@ public class RepairServiceImpl implements IRepairService {
         return repairDao.findById(id);
     }
 
-
+    @Override
+    public List<Repair> findAll(){
+        return repairDao.findAll();
+    }
 }

@@ -26,6 +26,8 @@ public class User {
     @Getter
     private boolean role;
 
+
+
     @Override
     public String toString() {
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,

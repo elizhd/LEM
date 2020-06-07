@@ -56,6 +56,11 @@
         limit #{offset},#{rows}
     </select>
 
+    <select id="findAll" resultType="com.usts.lem.model.Repair"
+            parameterType="Integer">
+        select * from repairInfo;
+    </select>
+
     <select id="findBySerialNumber" resultMap="RepairResult"
             parameterType="String">
         select *

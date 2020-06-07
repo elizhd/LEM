@@ -137,7 +137,7 @@ $('#insertSave').click(function () {
 });
 
 
-// 删除信息
+//维修信息
 $('#repairBtn').click(function () {
     var rows = $('#table').bootstrapTable('getSelections');
     if (rows.length == 0) {

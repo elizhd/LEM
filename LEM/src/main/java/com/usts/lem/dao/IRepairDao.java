@@ -26,5 +26,10 @@ public interface IRepairDao extends IMBaseDao<Repair> {
 
     List<Repair> fuzzSearch(String keyWord);
 
+    /**
+     * @Description 分页数据基础函数
+     * @Return List<Scrap>
+     */
+    List<Repair> findAll();
 
 }

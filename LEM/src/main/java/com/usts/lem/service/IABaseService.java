@@ -65,4 +65,5 @@ public interface IABaseService<T> {
      * @Return T
      */
     T findById(Integer id);
+
 }
