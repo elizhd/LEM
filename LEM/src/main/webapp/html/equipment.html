@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../vendor/css/bootstrap.css">
     <link rel="stylesheet" href="../vendor/css/admin_page.css">
     <link rel="stylesheet" href="../vendor/css/bootstrap-table.css">
-    <link rel="stylesheet" type="text/css" href="../vendor/css/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="../vendor/css/bootstrap-datepicker.min.css"/>
     <script src="../vendor/js/solid.js"></script>
     <script src="../vendor/js/fontawesome.js"></script>
 </head>
@@ -82,8 +82,8 @@
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 添加
             </button>
-            <button type="button" class="btn btn-danger" id="repairBtn">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+            <button type="button" class="btn btn-warning" id="repairBtn">
+                <i class="fa fa-wrench" aria-hidden="true"></i>
                 维修
             </button>
             <button type="button" class="btn btn-primary" id="updateBtn">
@@ -168,7 +168,7 @@
 
                             <div class="form-group">
                                 <label for="insertPDate">购置日期</label>
-                                <input type="text" class="form-control" id="insertPDate" placeholder="">
+                                <input class="form-control .datepicker" id="insertPDate" placeholder="">
                             </div>
 
                             <div class="form-group">
@@ -290,7 +290,7 @@
 <script src="../vendor/js/bootstrap-table-locale-all.js"></script>
 <script src="../vendor/js/bootbox.min.js"></script>
 <script src="../vendor/js/bootbox.locales.min.js"></script>
-<script src="../vendor/js/jquery.datetimepicker.js"></script>
+<script src="../vendor/js/bootstrap-datepicker.min.js"></script>
 
 <script src="../vendor/js/equipment.js"></script>
 <script>
@@ -300,14 +300,12 @@
             $('#sidebar').toggleClass('active');
         });
 
-        $('#insertPDate').datetimepicker({
-            lang: 'ch',
-            format: 'yyyy-mm-dd hh:mm:ss'
+        $('#insertPDate').datepicker({
+            format: 'yyyy-mm-dd'
         });
 
-        $('#updatePDate').datetimepicker({
-            lang: 'ch',
-            format: 'yyyy-mm-dd hh:mm:ss'
+        $('#updatePDate').datepicker({
+            format: 'yyyy-mm-dd'
         });
 
         $('#logout').click(function () {

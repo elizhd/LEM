@@ -12,7 +12,7 @@
         <result column="spec" jdbcType="VARCHAR" property="spec"/>
         <result column="unitPrice" jdbcType="DOUBLE" property="unitPrice"/>
         <result column="manufacture" jdbcType="VARCHAR" property="manufacture"/>
-        <result column="purchaseDate" jdbcType="TIMESTAMP" property="purchaseDate"/>
+        <result column="purchaseDate" jdbcType="DATE" property="purchaseDate"/>
         <result column="manager" jdbcType="VARCHAR" property="manager"/>
         <result column="eState" jdbcType="INTEGER" property="eState"/>
     </resultMap>

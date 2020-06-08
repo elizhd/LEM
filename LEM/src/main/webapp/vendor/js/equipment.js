@@ -57,7 +57,6 @@ function initTable() {
     });
 }
 
-
 // 刷新表格
 $('#refreshBtn').click(function () {
     initTable();
@@ -74,9 +73,7 @@ $('#insertSave').click(function () {
     console.log(insertPDate + ":00");
     var insertManager = $('#insertManager').val();
     if (insertPDate == "")
-        insertPDate = new Date().pattern("yyyy-MM-dd hh:mm:ss");
-    else
-        insertPDate += ":00";
+        insertPDate = new Date().pattern("yyyy-MM-dd");
 
     $.ajax({
         type: "post",
@@ -241,10 +238,7 @@ $('#updateSave').click(function () {
     var updatePDate = $('#updatePDate').val();
     var updateManager = $('#updateManager').val();
     if (updatePDate == "")
-        updatePDate = new Date().pattern("yyyy-mm-dd hh:mm:ss");
-    else {
-        updatePDate = updatePDate + ":00";
-    }
+        updatePDate = new Date().pattern("yyyy-mm-dd");
 
 
     $.ajax({

@@ -39,7 +39,7 @@ public class Apply {
     private String manufacture;   // 生产厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date purchaseDate;  // 购置日期
     @Setter
     @Getter
@@ -59,6 +59,7 @@ public class Apply {
 
     @Override
     public String toString() {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat);
     }

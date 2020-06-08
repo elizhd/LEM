@@ -80,6 +80,7 @@ public class EquipmentController {
         int specAmount;
         if (!specMapper.containsKey(spec)) {
             specAmount = equipmentService.countSpec("其他");
+            equipment.setSpec("其他");
             serialNumber = "T" + String.format("%04d", specAmount + 1);
         } else {
             serialNumber = specMapper.get(spec);

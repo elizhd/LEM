@@ -37,10 +37,11 @@ public class Buy {
     private String approver;   //审批人
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date applyDate;  // 申请日期
     @Override
     public String toString() {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat);
     }

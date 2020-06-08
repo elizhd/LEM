@@ -274,10 +274,7 @@ function initTable() {
         var updatePDate = $('#updatePDate').val();
         var updateManager = $('#updateManager').val();
         if (updatePDate == "")
-            updatePDate = new Date().pattern("yyyy-mm-dd hh:mm:ss");
-        else {
-            updatePDate = updatePDate + ":00";
-        }
+            updatePDate = new Date().pattern("yyyy-mm-dd");
 
         $.ajax({
             type: "post",

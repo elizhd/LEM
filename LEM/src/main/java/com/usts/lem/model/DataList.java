@@ -27,6 +27,7 @@ public class DataList<T> {
 
     @Override
     public String toString() {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat);
     }

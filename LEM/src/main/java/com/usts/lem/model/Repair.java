@@ -34,7 +34,7 @@ public class Repair {
     private String repairFactory;   // 修理厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date repairDate;  // 修理日期
     @Setter
     @Getter
@@ -48,6 +48,7 @@ public class Repair {
 
     @Override
     public String toString() {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat);
     }

@@ -31,7 +31,7 @@ public class Scrap {
     private String manufacture;   // 生产厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date scrapDate;  // 报废日期
     @Setter
     @Getter
@@ -39,6 +39,7 @@ public class Scrap {
 
     @Override
     public String toString() {
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
         return JSON.toJSONString(this, SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.WriteDateUseDateFormat);
     }
