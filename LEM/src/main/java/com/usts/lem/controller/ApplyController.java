@@ -1,11 +1,9 @@
 package com.usts.lem.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.usts.lem.model.Apply;
-import com.usts.lem.model.DataList;
-import com.usts.lem.model.Scrap;
-import com.usts.lem.model.User;
+import com.usts.lem.model.*;
 import com.usts.lem.service.IApplyService;
+import com.usts.lem.service.IBuyService;
 import com.usts.lem.service.IScrapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +25,8 @@ public class ApplyController {
     IApplyService applyService;
     @Resource(name = "scrapService")
     IScrapService scrapService;
+    @Resource(name = "buyService")
+    IBuyService buyService;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -108,7 +108,7 @@ public class ApplyController {
                 te.setResult(true);
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
-                if (te.getApplytype()==0){
+                if (te.getApplytype() == 0) {
                     Scrap sc = new Scrap();
                     Date date = new Date();
                     sc.setSpec(te.getSpec());
@@ -121,10 +121,23 @@ public class ApplyController {
                     sc.setApprover(user.getName());
                     scrapService.insert(sc);
                 }       //报废表
-//                }else {
-//                    //申请表
-//                }
+                else {
+                    Buy buy = new Buy();
+                    Date date = new Date();
+                    buy.setSpec(te.getSpec());
+                    buy.setName(te.getName());
+                    buy.setType(te.getType());
+                    buy.setSerialNumber(te.getSerialNumber());
+                    buy.setManufacture(te.getManufacture());
+                    buy.setApplyDate(date);
+                    buy.setUnitPrice(te.getUnitPrice());
+                    User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
+                    buy.setApprover(user.getName());
+                    buyService.insert(buy);
+
+                }//购买表
             }
+
             result.put("flag", true);
         } catch (Exception e) {
             result.put("flag", false);

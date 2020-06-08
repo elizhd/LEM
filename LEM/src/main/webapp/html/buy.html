@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>LEM | EquipmentList</title>
+    <title>LEM | BuyList</title>
     <link rel="icon" href="../vendor/img/lab_logo.svg">
     <link rel="stylesheet" href="../vendor/css/bootstrap.css">
     <link rel="stylesheet" href="../vendor/css/admin_page.css">
@@ -44,7 +44,6 @@
             <li>
                 <a href="./buy.html">实验室设备购买管理</a>
             </li>
-
         </ul>
         <ul class="list-unstyled CTAs">
             <li>
@@ -57,6 +56,8 @@
         </ul>
 
     </nav>
+
+    <!-- Page Content  -->
     <div id="content">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -67,27 +68,12 @@
 
             </div>
         </nav>
+
         <!--数据表-->
         <div id="toolbar">
             <button type="button" class="btn btn-success" id="refreshBtn">
                 <i class="fas fa-sync" aria-hidden="true"></i>
                 刷新
-            </button>
-<!--            <button type="button" class="btn btn-info" id="insertBtn" data-toggle="modal" data-target="#insertModal">-->
-<!--                <i class="fa fa-plus-circle" aria-hidden="true"></i>-->
-<!--                添加-->
-<!--            </button>-->
-            <button type="button" class="btn btn-danger" id="repairBtn">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-                维修完成
-            </button>
-            <button type="button" class="btn btn-primary" id="updateBtn">
-                <i class="fas fa-edit"></i>
-                添加维修信息
-            </button>
-            <button type="button" class="btn btn-primary" id="exportBtn">
-                <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                导出数据
             </button>
             <button class="btn btn-secondary dropdown-toggle" type="button" id="searchButtons" data-toggle="dropdown">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -105,6 +91,10 @@
                     编号搜索
                 </button>
             </div>
+            <button type="button" class="btn btn-primary" id="exportBtn">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                导出数据
+            </button>
         </div>
         <table id="table"
                data-toggle="true"
@@ -123,108 +113,17 @@
                 <th data-field="state" data-checkbox="true"></th>
                 <th data-field="serialNumber" data-sortable="true">编号</th>
                 <th data-field="name" data-sortable="true">设备名</th>
-<!--                <th data-field="type" data-sortable="true">型号</th>-->
+                <th data-field="type" data-sortable="true">型号</th>
                 <th data-field="spec" data-sortable="true">类型</th>
-                <th data-field="repairCost" data-sortable="true">修理价格</th>
-                <th data-field="repairFactory" data-sortable="true">修理厂商</th>
-                <th data-field="repairDate" data-sortable="true">修理日期</th>
-                <th data-field="eState" data-sortable="true">修理状态</th>
-                <th data-field="responsible" data-sortable="true">责任人</th>
+                <th data-field="unitPrice" data-sortable="true">单价</th>
+                <th data-field="manufacture" data-sortable="true">生产厂家</th>
+                <th data-field="applyDate" data-sortable="true">申请日期</th>
+                <th data-field="approver" data-sortable="true">审批人</th>
             </tr>
             </thead>
         </table>
 
         <div class="alert  fade show" role="alert" id="mResult"></div>
-
-<!--        &lt;!&ndash;添加数据 &ndash;&gt;-->
-<!--        <div class="modal fade" id="insertModal" tabindex="-1" role="dialog">-->
-<!--            <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <h5 class="modal-title">添加数据</h5>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        <form class="form-group" id="insertForm">-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertName">设备名</label>-->
-<!--                                <input type="text" class="form-control" id="insertName" placeholder="">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertSpec">类型</label>-->
-<!--                                <input type="text" class="form-control" id="insertSpec" placeholder="">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertPrice">修理价格</label>-->
-<!--                                <input type="text" class="form-control" id="insertPrice" placeholder="">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertMnfct">修理厂商</label>-->
-<!--                                <input type="text" class="form-control" id="insertMnfct" placeholder="">-->
-<!--                            </div>-->
-
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertPDate">修理日期</label>-->
-<!--                                <input type="text" class="form-control" id="insertPDate" placeholder="">-->
-<!--                            </div>-->
-
-<!--                            <div class="form-group">-->
-<!--                                <label for="insertManager">责任人</label>-->
-<!--                                <input type="text" class="form-control" id="insertManager" placeholder="">-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>-->
-<!--                        <button type="button" class="btn btn-primary" id="insertSave">添加</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <!--更新数据-->
-        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">修改维修信息</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-group" id="updateForm">
-                            <div class="form-group">
-                                <label for="updateName">设备名</label>
-                                <input type="text" class="form-control" id="updateName" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="updateSpec">类型</label>
-                                <input type="text" class="form-control" id="updateSpec" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="updatePrice">修理价格</label>
-                                <input type="text" class="form-control" id="updatePrice" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="updateMnfct">修理厂商</label>
-                                <input type="text" class="form-control" id="updateMnfct" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="updatePDate">修理日期</label>
-                                <input type="text" class="form-control" id="updatePDate" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="updateManager">责任人</label>
-                                <input type="text" class="form-control" id="updateManager" placeholder="">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" id="updateSave">保存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal fade" id="findBySerialNumberModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -247,6 +146,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="modal fade" id="findByKeywordModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -273,6 +173,7 @@
 
     </div>
 </div>
+
 <script src="../vendor/js/jquery-3.4.0.min.js"></script>
 <script src="../vendor/js/bootstrap.bundle.js"></script>
 <script src="../vendor/js/bootstrap-table.js"></script>
@@ -281,7 +182,7 @@
 <script src="../vendor/js/bootbox.locales.min.js"></script>
 <script src="../vendor/js/jquery.datetimepicker.js"></script>
 
-<script src="../vendor/js/repair.js"></script>
+<script src="../vendor/js/buy.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -349,6 +250,11 @@
             return fmt;
         };
     });
+
+
+
 </script>
+
+
 </body>
 </html>

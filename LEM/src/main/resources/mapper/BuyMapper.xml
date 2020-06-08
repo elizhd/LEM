@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.usts.lem.dao.IBuyDao">
+
+    <resultMap type="com.usts.lem.model.Buy" id="BuyResult">
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="serialNumber" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="unitPrice" jdbcType="DOUBLE" property="unitPrice"/>
+        <result column="manufacture" jdbcType="VARCHAR" property="manufacture"/>
+        <result column="applyDate" jdbcType="TIMESTAMP" property="applyDate"/>
+        <result column="approver" jdbcType="VARCHAR" property="approver"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.usts.lem.model.Buy"
+            useGeneratedKeys="true">
+        insert into buy(type,serialNumber, name,spec,
+                        unitPrice, manufacture,
+                        applyDate,approver)
+        values ( #{type},#{serialNumber}, #{name}, #{spec},
+                 #{unitPrice}, #{manufacture},
+                 #{applyDate},#{approver})
+    </insert>
+    <select id="countSpec" resultType="Integer" parameterType="String">
+        select COUNT(*)
+        from buy
+        where spec = #{spec}
+    </select>
+
+    <select id="findAll" resultType="com.usts.lem.model.Buy"
+            parameterType="Integer">
+        select * from buy;
+    </select>
+
+    <select id="count" resultType="Integer">
+        select COUNT(*)
+        from buy
+    </select>
+
+    <select id="findAllData" resultMap="BuyResult"
+            parameterType="Integer">
+        select *
+        from buy
+        order by ${sort} ${order}
+        limit #{offset},#{rows}
+
+    </select>
+
+    <select id="findBySerialNumber" resultMap="BuyResult"
+            parameterType="String">
+        select *
+        from buy
+        where serialNumber = #{serialNumber}
+    </select>
+
+    <select id="fuzzSearch" resultMap="BuyResult"
+            parameterType="String">
+        select *
+        from buy
+        where name like concat('%', #{keyWord}, '%')
+           or approver like concat('%', #{keyWord}, '%')
+           or type like concat('%', #{keyWord}, '%')
+           or spec like concat('%', #{keyWord}, '%')
+           or manufacture like concat('%', #{keyWord}, '%')
+           or serialNumber like concat('%', #{keyWord}, '%')
+    </select>
+
+    <select id="findById" resultMap="BuyResult"
+            parameterType="Integer">
+        select *
+        from buy
+        where id = #{id}
+    </select>
+
+</mapper>
