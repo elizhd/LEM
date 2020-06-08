@@ -52,6 +52,16 @@ function initTable() {
                 $('#mResult').html('');
             }, 2000);
         },
+
+        showExport: true,              //是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回false,手机不显示按钮)
+        exportDataType: "basic",              //basic', 'all', 'selected'.
+        exportTypes: ['excel'],	    //导出类型
+        exportOptions: {
+            fileName: '数据导出',              //文件名称设置
+            worksheetName: 'Sheet1',          //表格工作区名称
+            tableName: '维修设备数据表',
+            excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
+        }
     });
 }
 
@@ -330,6 +340,13 @@ function initTable() {
             }
         })
     });
+
+//导出数据
+$('#exportBtn').click(function () {
+        var url = getPath() + "/repair/downloadExcel";
+        window.open(url);
+    }
+);
 // 编号搜索
     $('#findBySerialNumberBtn').click(function () {
         var serialNumber = $("#serialNumber").val();

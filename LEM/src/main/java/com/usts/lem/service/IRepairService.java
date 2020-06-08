@@ -32,4 +32,10 @@ public interface IRepairService extends IMBaseService<Repair>{
      * @return java.util.List<com.usts.lem.model.Repair>
      **/
     List<Repair> fuzzSearch(String keyWord);
+
+    /**
+     * @Description 分页数据基础函数
+     * @Return List<Scrap>
+     */
+    List<Repair> findAll();
 }

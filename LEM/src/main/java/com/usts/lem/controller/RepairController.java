@@ -6,6 +6,7 @@ import com.usts.lem.model.Equipment;
 import com.usts.lem.model.Repair;
 import com.usts.lem.service.IEquipmentService;
 import com.usts.lem.service.IRepairService;
+import com.usts.lem.util.RepairExportExcelUtil;
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +30,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/repair")
 public class RepairController {
+
+    RepairExportExcelUtil exportExcelUtil = new RepairExportExcelUtil();
+
     // 类型于编号映射
     Map<String, String> specMapper = new HashMap<String, String>() {{
         put("显微镜", "A");
@@ -172,5 +179,36 @@ public class RepairController {
         writeJSON2Response(repairList.toString(), response);
 
 
+    }
+
+
+    /**
+     * @Author:  Tim
+     * @Description //导出数据
+     * @Date
+     * @Param  * @param response
+     * @return java.lang.String
+     **/
+
+    @RequestMapping(value = "downloadExcel")
+    public @ResponseBody
+    String downloadExcel(HttpServletResponse response) {
+        response.setContentType("application/binary;charset=UTF-8");
+        try {
+            ServletOutputStream out = response.getOutputStream();
+            try {
+                response.setHeader("Content-Disposition",
+                        "attachment;fileName=" + URLEncoder.encode("设备维修表" + ".xls","UTF-8"));
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+
+            String[] titles = {"设备号","设备名","类型","修理价格","修理厂商","修理日期","修理状态","责任人"};
+            exportExcelUtil.export(titles,repairService.findAll(),out);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "导出信息失败";
+        }
     }
 }

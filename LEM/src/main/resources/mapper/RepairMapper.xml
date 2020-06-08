@@ -48,6 +48,11 @@
         where id = #{id}
     </update>
 
+    <select id="findAll" resultType="com.usts.lem.model.Repair"
+            parameterType="Integer">
+        select * from repairInfo;
+    </select>
+
     <select id="findAllData" resultMap="RepairResult"
             parameterType="Integer">
         select id,serialNumber,name,spec,repairFactory,repairCost,repairDate,responsible,case eState when '1' then '已维修' when '2' then '待维修' end as eState
