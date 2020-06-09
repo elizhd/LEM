@@ -10,7 +10,7 @@ CREATE TABLE apply
     spec         varchar(64),
     unitPrice    Double,
     manufacture  varchar(64),
-    purchaseDate datetime,
+    purchaseDate date,
     applytype    int,
     applicant    varchar(64),
     approver     varchar(64),

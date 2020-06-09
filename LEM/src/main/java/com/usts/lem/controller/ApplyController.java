@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.usts.lem.model.*;
 import com.usts.lem.service.IApplyService;
 import com.usts.lem.service.IBuyService;
+import com.usts.lem.service.IEquipmentService;
 import com.usts.lem.service.IScrapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/apply")
@@ -27,6 +30,15 @@ public class ApplyController {
     IScrapService scrapService;
     @Resource(name = "buyService")
     IBuyService buyService;
+    @Resource(name = "equipmentService")
+    IEquipmentService equipmentService;
+
+    // 类型于编号映射
+    Map<String, String> specMapper = new HashMap<String, String>() {{
+        put("显微镜", "A");
+        put("精密仪器", "B");
+        put("普通实验仪器", "C");
+    }};
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -85,9 +97,23 @@ public class ApplyController {
     public void insertData(@RequestBody Apply apply, HttpServletRequest request,
                            HttpServletResponse response) {
         log.debug("SERVER Get Equipment: " + apply.toString());
+        System.out.println(apply.getPurchaseDate());
+        String spec = apply.getSpec();
+
+        String serialNumber;
+        int specAmount;
+        if (!specMapper.containsKey(spec)) {
+            specAmount = equipmentService.countSpec("其他");
+            apply.setSpec("其他");
+            serialNumber = "T" + String.format("%04d", specAmount + 1);
+        } else {
+            serialNumber = specMapper.get(spec);
+            specAmount = equipmentService.countSpec(spec);
+            serialNumber += String.format("%04d", specAmount + 1);
+        }
+        apply.setSerialNumber(serialNumber);
 
         JSONObject result = new JSONObject();
-
         if (applyService.insert(apply) > 0)
             result.put("flag", true);
         else
@@ -135,6 +161,32 @@ public class ApplyController {
                     buy.setApprover(user.getName());
                     buyService.insert(buy);
 
+                    //数据插入到设备信息表
+                    Equipment equipment = new Equipment();
+                    equipment.setSpec(te.getSpec());
+                    equipment.setName(te.getName());
+                    equipment.setType(te.getType());
+                    equipment.setUnitPrice(te.getUnitPrice());
+                    equipment.setManufacture(te.getManufacture());
+                    equipment.setPurchaseDate(date);
+                    equipment.setManager(te.getApplicant());
+
+
+                    String spec = equipment.getSpec();
+                    String serialNumber;
+                    int specAmount;
+                    if (!specMapper.containsKey(spec)) {
+                        specAmount = equipmentService.countSpec("其他");
+                        equipment.setSpec("其他");
+                        serialNumber = "T" + String.format("%04d", specAmount + 1);
+                    } else {
+                        serialNumber = specMapper.get(spec);
+                        specAmount = equipmentService.countSpec(spec);
+                        serialNumber += String.format("%04d", specAmount + 1);
+                    }
+                    equipment.setSerialNumber(serialNumber);
+                    equipment.setEState(1);
+                    equipmentService.insert(equipment);
                 }//购买表
             }
 

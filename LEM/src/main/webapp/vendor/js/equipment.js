@@ -63,6 +63,76 @@ $('#refreshBtn').click(function () {
 });
 
 // 添加信息
+// $('#insertSave').click(function () {
+//     var insertType = $('#insertType').val();
+//     var insertName = $('#insertName').val();
+//     var insertSpec = $('#insertSpec').val();
+//     var insertPrice = $('#insertPrice').val();
+//     var insertMnfc = $('#insertMnfct').val();
+//     var insertPDate = $('#insertPDate').val();
+//     console.log(insertPDate + ":00");
+//     var insertManager = $('#insertManager').val();
+//     if (insertPDate == "")
+//         insertPDate = new Date().pattern("yyyy-MM-dd");
+//
+//     $.ajax({
+//         type: "post",
+//         url: getPath() + "/equip/insertData",
+//         async: false,
+//         dataType: 'json',
+//         contentType: 'application/json',
+//         data: JSON.stringify({
+//             "id": 0,
+//             "serialNumber": "",
+//             "type": insertType,
+//             "name": insertName,
+//             "spec": insertSpec,
+//             "unitPrice": insertPrice,
+//             "manufacture": insertMnfc,
+//             "purchaseDate": insertPDate,
+//             "manager": insertManager,
+//             "eState": 1,
+//         }),
+//         success: function (data) {
+//             if (data.flag) {
+//                 $('#insertModal').modal("hide");
+//                 $('#insertType').val('');
+//                 $('#insertName').val('');
+//                 $('#insertSpec').val('');
+//                 $('#insertPrice').val('');
+//                 $('#insertMnfct').val('');
+//                 $('#insertPDate').val('');
+//                 $('#insertManager').val('');
+//                 bootbox.alert({
+//                     centerVertical: true,
+//                     title: "成功",
+//                     message: "添加成功!",
+//                     locale: "zh_CN"
+//                 })
+//                 initTable();
+//             } else {
+//                 bootbox.alert({
+//                     centerVertical: true,
+//                     title: "失败",
+//                     message: "添加失败!",
+//                     locale: "zh_CN"
+//                 })
+//                 initTable();
+//             }
+//
+//         },
+//         error: function () {
+//             $('#mResult').addClass('alert-danger');
+//             $('#mResult').html("由于服务器原因，添加失败!");
+//             setTimeout(function () {
+//                 $('#mResult').removeClass('alert-danger');
+//                 $('#mResult').html('');
+//             }, 2000);
+//         }
+//     })
+//
+// });
+
 $('#insertSave').click(function () {
     var insertType = $('#insertType').val();
     var insertName = $('#insertName').val();
@@ -77,7 +147,7 @@ $('#insertSave').click(function () {
 
     $.ajax({
         type: "post",
-        url: getPath() + "/equip/insertData",
+        url: getPath() + "/apply/insertData",
         async: false,
         dataType: 'json',
         contentType: 'application/json',
@@ -90,8 +160,10 @@ $('#insertSave').click(function () {
             "unitPrice": insertPrice,
             "manufacture": insertMnfc,
             "purchaseDate": insertPDate,
-            "manager": insertManager,
-            "eState": 1,
+            "applytype":1,
+            "applicant": insertManager,
+            "isvisible": true,
+            "result": false,
         }),
         success: function (data) {
             if (data.flag) {
