@@ -54,22 +54,31 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                 response.setHeader("CONTEXTPATH", contextPath + "/index.html");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             } else {
-                // 如果不是 ajax 请求，则直接跳转即可
+                // 如果不是 ajax 请求，则直接跳转
                 response.sendRedirect(contextPath + "/html/not_login.html");
             }
             // request.getRequestDispatcher( "/html/not_login.html").forward(request, response);
             // response.sendRedirect(contextPath + "/html/not_login.html");
-        } else if (!user.isRole() && servletPath.contains("/apply.html")) {
-            log.debug("User is not manager");
-            log.debug("SERVER to " + "not_login.html");
-            request.getRequestDispatcher("/html/not_manager.html").forward(request, response);
-            // response.sendRedirect(contextPath + "/html/not_manager.html");
         } else {
-            log.debug("SERVER Get User: " + user.toString());
-            flag = true;
+            if (!user.isRole() && servletPath.contains("/apply")) {
+                log.debug("User is not manager");
+                log.debug("SERVER to " + "not_manager.html");
+                // request.getRequestDispatcher("/html/not_manager.html").forward(request, response);
+                if (request.getHeader("x-requested-with") != null
+                        && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
+                    response.setHeader("SESSIONSTATUS", "TIMEOUT");
+                    response.setHeader("CONTEXTPATH", contextPath + "/index.html");
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                } else {
+                    // 如果不是 ajax 请求，则直接跳转
+                    response.sendRedirect(contextPath + "/html/not_manager.html");
+                }
+            } else {
+                log.debug("SERVER Get User: " + user.toString());
+                flag = true;
+            }
+
         }
-
-
         return flag;
 
     }
