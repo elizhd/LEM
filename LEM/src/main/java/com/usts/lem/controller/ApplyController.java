@@ -146,6 +146,7 @@ public class ApplyController {
                     User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
                     sc.setApprover(user.getName());
                     scrapService.insert(sc);
+
                 }       //报废表
                 else {
                     Buy buy = new Buy();

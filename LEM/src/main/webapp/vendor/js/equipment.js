@@ -284,7 +284,7 @@ $('#updateBtn').click(function () {
         bootbox.alert({
             centerVertical: true,
             title: "错误",
-            message: "修改操作只能选择一条数据！",
+            message: "报废操作只能选择一件设备！",
             locale: "zh_CN"
         });
     } else {
