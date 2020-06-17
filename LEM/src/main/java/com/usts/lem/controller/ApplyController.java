@@ -160,6 +160,7 @@ public class ApplyController {
                     buy.setUnitPrice(te.getUnitPrice());
                     User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
                     buy.setApprover(user.getName());
+                    buy.setResult("批准");
                     buyService.insert(buy);
 
                     //数据插入到设备信息表
@@ -201,7 +202,7 @@ public class ApplyController {
     // 拒绝申请
     @PostMapping(value = "/refuse")
     @ResponseBody
-    public void deleteByIds2(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+    public void deleteByIds2(@RequestParam(value = "ids") String ids, HttpServletResponse response,HttpSession session) {
         log.debug("Get ids: " + ids);
         String[] idArray = ids.split(",");
         JSONObject result = new JSONObject();
@@ -212,11 +213,24 @@ public class ApplyController {
                 te.setIsvisible(false);
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
-//                if (te.getApplytype==0){
-//                    //报废表
-//                }else {
-//                    //申请表
-//                }
+                if (te.getApplytype()==0){
+
+                }else {
+                    Buy buy = new Buy();
+                    Date date = new Date();
+                    buy.setSpec(te.getSpec());
+                    buy.setName(te.getName());
+                    buy.setType(te.getType());
+                    buy.setSerialNumber(te.getSerialNumber());
+                    buy.setManufacture(te.getManufacture());
+                    buy.setApplyDate(date);
+                    buy.setUnitPrice(te.getUnitPrice());
+                    User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
+                    buy.setApprover(user.getName());
+                    buy.setResult("驳回");
+                    buyService.insert(buy);
+                    //申请购买表
+                }
             }
             result.put("flag", true);
         } catch (Exception e) {

@@ -148,7 +148,7 @@ public class BuyController {
                 e1.printStackTrace();
             }
 
-            String[] titles = {"serialNumber","type","name","spec","unitPrice","manufacture","applyDate","approver"};
+            String[] titles = {"serialNumber","type","name","spec","unitPrice","manufacture","applyDate","approver","result"};
             buyexportExcelUtil.export(titles,buyService.findAll(),out);
             return "success";
         } catch (Exception e) {

@@ -11,7 +11,8 @@ CREATE TABLE buy
     unitPrice    Double,
     manufacture  varchar(64),
     applyDate   datetime,
-    approver   varchar(64)
+    approver   varchar(64),
+    result varchar(64)
 );
 # insert into buy
 #  values (1, 'A0001', 'Quanta200', '环境扫描电子显微镜', '显微镜', 3500.0, 'MS', 20190709132500,'James');

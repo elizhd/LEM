@@ -78,6 +78,11 @@ public class BuyExportExcelUtil {
                 if (buy.getApprover() != null)
                     approver = buy.getApprover();
                 row.createCell(7).setCellValue(approver);
+
+                String result = "";
+                if (buy.getResult() != null)
+                    result = buy.getResult();
+                row.createCell(8).setCellValue(result);
             }
 
             //第七步，将文件输出到客户端浏览器

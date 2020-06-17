@@ -37,6 +37,7 @@ public class Buy {
     private String approver;   //审批人
     @Setter
     @Getter
+    private String result;//审批结果
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date applyDate;  // 申请日期
     @Override
