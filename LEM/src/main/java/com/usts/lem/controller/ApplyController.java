@@ -146,6 +146,7 @@ public class ApplyController {
                     User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
                     sc.setApprover(user.getName());
                     scrapService.insert(sc);
+                    equipmentService.deleteBySerialNumber(te.getSerialNumber());
 
                 }       //报废表
                 else {
@@ -231,6 +232,38 @@ public class ApplyController {
                     buyService.insert(buy);
                     //申请购买表
                 }
+            }
+            result.put("flag", true);
+        } catch (Exception e) {
+            result.put("flag", false);
+        }
+        writeJSON2Response(result, response);
+    }
+
+    // 报废申请
+    @PostMapping(value = "/scrapByIds")
+    @ResponseBody
+    public void scrapByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+        log.debug("Get ids: " + ids);
+        String[] idArray = ids.split(",");
+        JSONObject result = new JSONObject();
+        try {
+            for (String id : idArray) {
+                Equipment equipment = equipmentService.findById(Integer.valueOf(id));
+                Apply apply =new Apply();
+                apply.setId(equipment.getId());
+                apply.setSerialNumber(equipment.getSerialNumber());
+                apply.setType(equipment.getType());
+                apply.setName(equipment.getName());
+                apply.setSpec(equipment.getSpec());
+                apply.setUnitPrice(equipment.getUnitPrice());
+                apply.setManufacture(equipment.getManufacture());
+                apply.setPurchaseDate(equipment.getPurchaseDate());
+                apply.setApplytype(0);
+                apply.setResult(false);
+                apply.setIsvisible(true);
+                applyService.insert(apply);
+                //报废申请加入
             }
             result.put("flag", true);
         } catch (Exception e) {
