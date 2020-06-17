@@ -60,7 +60,11 @@ public class EquipmentServiceImpl implements IEquipmentService {
     }
 
     @Override
-    public Equipment findBySerialNumberAll(String serialNumber){
+    public Equipment findBySerialNumberAll(String serialNumber) {
         return equipmentDao.findBySerialNumberAll(serialNumber);
+    }
+
+    public int deleteBySerialNumber(String serialNumber) {
+        return equipmentDao.deleteBySerialNumber(serialNumber);
     }
 }

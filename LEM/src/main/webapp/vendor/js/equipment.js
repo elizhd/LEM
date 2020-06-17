@@ -206,7 +206,7 @@ $('#insertSave').click(function () {
 });
 
 
-// 删除信息
+// 维修
 $('#repairBtn').click(function () {
     var rows = $('#table').bootstrapTable('getSelections');
     if (rows.length == 0) {
@@ -265,6 +265,78 @@ $('#repairBtn').click(function () {
                         error: function (data) {
                             $('#mResult').addClass('alert-danger');
                             $('#mResult').html("由于服务器原因，状态更改为维修失败!");
+                            setTimeout(function () {
+                                $('#mResult').removeClass('alert-danger');
+                                $('#mResult').html('');
+                            }, 2000);
+                        },
+                    });
+                }
+            }
+        });
+    }
+});
+
+
+// 报废
+$('#scrapBtn').click(function () {
+    var rows = $('#table').bootstrapTable('getSelections');
+    if (rows.length == 0) {
+        bootbox.alert({
+            centerVertical: true,
+            title: "错误",
+            message: "报废操作至少需要选择一条数据!",
+            locale: "zh_CN"
+        });
+
+    } else {
+        var ids = '';
+        $.each(rows, function () {
+            ids += this.id + ",";
+        });
+        ids = ids.substring(0, ids.length - 1);
+
+        bootbox.confirm({
+            centerVertical: true,
+            title: "报废确认",
+            message: "确认申请报废所选?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> 取消'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> 确认'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: 'POST',
+                        url: getPath() + "/apply/scrapByIds",
+                        data: {ids: ids},
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.flag) {
+                                bootbox.alert({
+                                    centerVertical: true,
+                                    title: "成功",
+                                    message: "状态更改为报废(待审核)成功!",
+                                    locale: "zh_CN"
+                                });
+                                initTable();
+                            } else {
+                                bootbox.alert({
+                                    centerVertical: true,
+                                    title: "失败",
+                                    message: "状态更改为报废(待审核)失败!",
+                                    locale: "zh_CN"
+                                });
+                                initTable();
+                            }
+                        },
+                        error: function (data) {
+                            $('#mResult').addClass('alert-danger');
+                            $('#mResult').html("由于服务器原因，状态更改为报废(待审核)失败!");
                             setTimeout(function () {
                                 $('#mResult').removeClass('alert-danger');
                                 $('#mResult').html('');

@@ -39,4 +39,7 @@ public interface IEquipmentDao extends IMBaseDao<Equipment> {
      **/
 
     Equipment findBySerialNumberAll(String serialNumber);
+
+
+    int deleteBySerialNumber(String serialNumber);
 }

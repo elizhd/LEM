@@ -36,4 +36,7 @@ public interface IEquipmentService extends IMBaseService<Equipment> {
      **/
 
     Equipment findBySerialNumberAll(String serialNumber);
+
+
+    int deleteBySerialNumber(String serialNumber);
 }

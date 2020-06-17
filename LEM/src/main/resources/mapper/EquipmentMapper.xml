@@ -97,6 +97,12 @@
         where id = #{id}
     </delete>
 
+    <delete id="deleteBySerialNumber" parameterType="String">
+        delete
+        from equipment
+        where serialNumber = #{serialNumber}
+    </delete>
+
     <select id="findById" resultMap="EquipmentResult"
             parameterType="Integer">
         select *

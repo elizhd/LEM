@@ -4,7 +4,6 @@ package com.usts.lem.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.usts.lem.model.DataList;
 import com.usts.lem.model.Equipment;
-import com.usts.lem.model.Repair;
 import com.usts.lem.service.IEquipmentService;
 import com.usts.lem.service.IRepairService;
 import org.slf4j.Logger;
@@ -69,62 +68,63 @@ public class EquipmentController {
         writeJSON2Response(equipList.toString(), response);
     }
 
-    @PostMapping(value = "/insertData")
-    @ResponseBody
-    public void insertData(@RequestBody Equipment equipment, HttpServletRequest request,
-                           HttpServletResponse response) {
-        log.debug("SERVER Get Equipment: " + equipment.toString());
-        String spec = equipment.getSpec();
+//    @PostMapping(value = "/insertData")
+//    @ResponseBody
+//    public void insertData(@RequestBody Equipment equipment, HttpServletRequest request,
+//                           HttpServletResponse response) {
+//        log.debug("SERVER Get Equipment: " + equipment.toString());
+//        String spec = equipment.getSpec();
+//
+//        String serialNumber;
+//        int specAmount;
+//        if (!specMapper.containsKey(spec)) {
+//            specAmount = equipmentService.countSpec("其他");
+//            equipment.setSpec("其他");
+//            serialNumber = "T" + String.format("%04d", specAmount + 1);
+//        } else {
+//            serialNumber = specMapper.get(spec);
+//            specAmount = equipmentService.countSpec(spec);
+//            serialNumber += String.format("%04d", specAmount + 1);
+//        }
+//        equipment.setSerialNumber(serialNumber);
+//        equipment.setEState(1);
+//
+//        JSONObject result = new JSONObject();
+//
+//        if (equipmentService.insert(equipment) > 0)
+//            result.put("flag", true);
+//        else
+//            result.put("flag", false);
+//        writeJSON2Response(result, response);
+//    }
 
-        String serialNumber;
-        int specAmount;
-        if (!specMapper.containsKey(spec)) {
-            specAmount = equipmentService.countSpec("其他");
-            equipment.setSpec("其他");
-            serialNumber = "T" + String.format("%04d", specAmount + 1);
-        } else {
-            serialNumber = specMapper.get(spec);
-            specAmount = equipmentService.countSpec(spec);
-            serialNumber += String.format("%04d", specAmount + 1);
-        }
-        equipment.setSerialNumber(serialNumber);
-        equipment.setEState(1);
 
-        JSONObject result = new JSONObject();
+//    // 将state设为2 表明维修
+//    @PostMapping(value = "/repairByIds")
+//    @ResponseBody
+//    public void repairByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+//        log.debug("Get ids: " + ids);
+//        String[] idArray = ids.split(",");
+//        JSONObject result = new JSONObject();
+//        try {
+//            for (String id : idArray) {
+//                Equipment te = equipmentService.findById(Integer.valueOf(id));
+//                Repair re = new Repair();
+//                re.setSerialNumber(te.getSerialNumber());
+//                re.setName(te.getName());
+//                re.setSpec(te.getSpec());
+//                re.setEState("2");
+//                repairService.insert(re);
+//                te.setEState(2);
+//                equipmentService.update(te);
+//            }
+//            result.put("flag", true);
+//        } catch (Exception e) {
+//            result.put("flag", false);
+//        }
+//        writeJSON2Response(result, response);
+//    }
 
-        if (equipmentService.insert(equipment) > 0)
-            result.put("flag", true);
-        else
-            result.put("flag", false);
-        writeJSON2Response(result, response);
-    }
-
-
-    // 将state设为2 表明维修
-    @PostMapping(value = "/repairByIds")
-    @ResponseBody
-    public void deleteByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
-        log.debug("Get ids: " + ids);
-        String[] idArray = ids.split(",");
-        JSONObject result = new JSONObject();
-        try {
-            for (String id : idArray) {
-                Equipment te = equipmentService.findById(Integer.valueOf(id));
-                Repair re = new Repair();
-                re.setSerialNumber(te.getSerialNumber());
-                re.setName(te.getName());
-                re.setSpec(te.getSpec());
-                re.setEState("2");
-                repairService.insert(re);
-                te.setEState(2);
-                equipmentService.update(te);
-            }
-            result.put("flag", true);
-        } catch (Exception e) {
-            result.put("flag", false);
-        }
-        writeJSON2Response(result, response);
-    }
 
     @PostMapping(value = "/updateData")
     @ResponseBody

@@ -99,4 +99,15 @@ public class EquipmentTest {
         System.out.println(equipment);
     }
 
+    @Test
+    public void deleteBySerialNumber() {
+        int rows = equipmentService.deleteBySerialNumber("A0001");
+        if (rows > 0) {
+            System.out.println("您成功删除了" + rows + "条数据！");
+        } else {
+            System.out.println("执行删除操作失败！！！");
+
+        }
+    }
+
 }
