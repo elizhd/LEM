@@ -34,7 +34,8 @@ public class Repair {
     private String repairFactory;   // 修理厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date repairDate;  // 修理日期
     @Setter
     @Getter
