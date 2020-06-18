@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -34,7 +35,8 @@ public class Repair {
     private String repairFactory;   // 修理厂家
     @Setter
     @Getter
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date repairDate;  // 修理日期
     @Setter
     @Getter
