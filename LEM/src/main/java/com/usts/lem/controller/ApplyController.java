@@ -215,8 +215,9 @@ public class ApplyController {
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
                 if (te.getApplytype()==0){
-//                    Equipment equipment = new Equipment();
-//                    equipment.setEState(1);
+                    Equipment equipment = equipmentService.findBySerialNumberAll(te.getSerialNumber());
+                    equipment.setEState(1);
+                    equipmentService.update(equipment);
                 }else {
                     Buy buy = new Buy();
                     Date date = new Date();
@@ -251,6 +252,8 @@ public class ApplyController {
         try {
             for (String id : idArray) {
                 Equipment equipment = equipmentService.findById(Integer.valueOf(id));
+                equipment.setEState(3);
+                equipmentService.update(equipment);
                 Apply apply =new Apply();
                 apply.setId(equipment.getId());
                 apply.setSerialNumber(equipment.getSerialNumber());
