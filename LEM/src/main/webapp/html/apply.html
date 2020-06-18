@@ -90,18 +90,18 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
                 搜索
             </button>
-<!--            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-<!--                <button type="button" class="dropdown-item" id="dateSearchBtn" data-toggle="modal"-->
-<!--                        data-target="#findByKeywordModal">-->
-<!--                    <i class="fa fa-search-plus" aria-hidden="true"></i>-->
-<!--                    模糊搜索-->
-<!--                </button>-->
-<!--                <button type="button" class="dropdown-item" id="titleSearchBtn" data-toggle="modal"-->
-<!--                        data-target="#findBySerialNumberModal">-->
-<!--                    <i class="fa fa-search-minus" aria-hidden="true"></i>-->
-<!--                    编号搜索-->
-<!--                </button>-->
-<!--            </div>-->
+            <!--            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+            <!--                <button type="button" class="dropdown-item" id="dateSearchBtn" data-toggle="modal"-->
+            <!--                        data-target="#findByKeywordModal">-->
+            <!--                    <i class="fa fa-search-plus" aria-hidden="true"></i>-->
+            <!--                    模糊搜索-->
+            <!--                </button>-->
+            <!--                <button type="button" class="dropdown-item" id="titleSearchBtn" data-toggle="modal"-->
+            <!--                        data-target="#findBySerialNumberModal">-->
+            <!--                    <i class="fa fa-search-minus" aria-hidden="true"></i>-->
+            <!--                    编号搜索-->
+            <!--                </button>-->
+            <!--            </div>-->
         </div>
         <table id="table"
                data-toggle="true"
@@ -291,6 +291,23 @@
 <script src="../vendor/js/apply.js"></script>
 <script>
     $(document).ready(function () {
+        $.ajaxSetup({
+            complete: function (xhr, status) {
+                //拦截器实现超时跳转到登录页面
+                // 通过xhr取得响应头
+                var REDIRECT = xhr.getResponseHeader("REDIRECT");
+                // alert(REDIRECT);
+                //如果响应头中包含 REDIRECT 则说明是拦截器返回的
+                if (REDIRECT == "REDIRECT") {
+                    var win = window;
+                    while (win != win.top) {
+                        win = win.top;
+                    }
+                    //重新跳转到拦截器中的路径
+                    win.location.href = xhr.getResponseHeader("CONTEXTPATH");
+                }
+            }
+        });
 
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');

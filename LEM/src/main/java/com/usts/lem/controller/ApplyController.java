@@ -215,8 +215,9 @@ public class ApplyController {
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
                 if (te.getApplytype()==0){
-                    //驳回报废申请，
-
+                    Equipment equipment = equipmentService.findBySerialNumberAll(te.getSerialNumber());
+                    equipment.setEState(1);
+                    equipmentService.update(equipment);
                 }else {
                     Buy buy = new Buy();
                     Date date = new Date();
@@ -244,13 +245,15 @@ public class ApplyController {
     // 报废申请
     @PostMapping(value = "/scrapByIds")
     @ResponseBody
-    public void scrapByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+    public void scrapByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response,HttpSession session) {
         log.debug("Get ids: " + ids);
         String[] idArray = ids.split(",");
         JSONObject result = new JSONObject();
         try {
             for (String id : idArray) {
                 Equipment equipment = equipmentService.findById(Integer.valueOf(id));
+                equipment.setEState(3);
+                equipmentService.update(equipment);
                 Apply apply =new Apply();
                 apply.setId(equipment.getId());
                 apply.setSerialNumber(equipment.getSerialNumber());
@@ -260,6 +263,8 @@ public class ApplyController {
                 apply.setUnitPrice(equipment.getUnitPrice());
                 apply.setManufacture(equipment.getManufacture());
                 apply.setPurchaseDate(equipment.getPurchaseDate());
+                User user = (User) session.getAttribute("userObj");//获取当前登录用户信息
+                apply.setApplicant(user.getName());
                 apply.setApplytype(0);
                 apply.setResult(false);
                 apply.setIsvisible(true);
