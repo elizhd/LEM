@@ -215,6 +215,7 @@ public class ApplyController {
                 applyService.updateResult(te);
                 //在这将数据插入对应的申请表和报废表
                 if (te.getApplytype()==0){
+                    //驳回报废申请，
 
                 }else {
                     Buy buy = new Buy();
