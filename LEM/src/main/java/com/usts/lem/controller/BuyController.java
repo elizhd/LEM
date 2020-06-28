@@ -1,8 +1,15 @@
 package com.usts.lem.controller;
+
 import com.alibaba.fastjson.JSONObject;
-import com.usts.lem.model.DataList;
 import com.usts.lem.model.Buy;
+import com.usts.lem.model.DataList;
 import com.usts.lem.service.IBuyService;
+import com.usts.lem.util.BuyExportExcelUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.usts.lem.util.BuyExportExcelUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/buy")
 public class BuyController {
@@ -143,7 +144,7 @@ public class BuyController {
             ServletOutputStream out = response.getOutputStream();
             try {
                 response.setHeader("Content-Disposition",
-                        "attachment;fileName=" + URLEncoder.encode("data" + ".xls","UTF-8"));
+                        "attachment;fileName=" + URLEncoder.encode("购买记录表" + ".xls", "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
             }

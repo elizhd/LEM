@@ -150,7 +150,7 @@ public class ScrapController {
             ServletOutputStream out = response.getOutputStream();
             try {
                 response.setHeader("Content-Disposition",
-                        "attachment;fileName=" + URLEncoder.encode("data" + ".xls","UTF-8"));
+                        "attachment;fileName=" + URLEncoder.encode("设备报废表" + ".xls", "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
             }
