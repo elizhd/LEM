@@ -4,6 +4,7 @@ package com.usts.lem.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.usts.lem.model.DataList;
 import com.usts.lem.model.Equipment;
+import com.usts.lem.model.Repair;
 import com.usts.lem.service.IEquipmentService;
 import com.usts.lem.service.IRepairService;
 import org.slf4j.Logger;
@@ -99,31 +100,31 @@ public class EquipmentController {
 //    }
 
 
-//    // 将state设为2 表明维修
-//    @PostMapping(value = "/repairByIds")
-//    @ResponseBody
-//    public void repairByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
-//        log.debug("Get ids: " + ids);
-//        String[] idArray = ids.split(",");
-//        JSONObject result = new JSONObject();
-//        try {
-//            for (String id : idArray) {
-//                Equipment te = equipmentService.findById(Integer.valueOf(id));
-//                Repair re = new Repair();
-//                re.setSerialNumber(te.getSerialNumber());
-//                re.setName(te.getName());
-//                re.setSpec(te.getSpec());
-//                re.setEState("2");
-//                repairService.insert(re);
-//                te.setEState(2);
-//                equipmentService.update(te);
-//            }
-//            result.put("flag", true);
-//        } catch (Exception e) {
-//            result.put("flag", false);
-//        }
-//        writeJSON2Response(result, response);
-//    }
+   // 将state设为2 表明维修
+   @PostMapping(value = "/repairByIds")
+   @ResponseBody
+   public void repairByIds(@RequestParam(value = "ids") String ids, HttpServletResponse response) {
+       log.debug("Get ids: " + ids);
+       String[] idArray = ids.split(",");
+       JSONObject result = new JSONObject();
+       try {
+           for (String id : idArray) {
+               Equipment te = equipmentService.findById(Integer.valueOf(id));
+               Repair re = new Repair();
+               re.setSerialNumber(te.getSerialNumber());
+               re.setName(te.getName());
+               re.setSpec(te.getSpec());
+               re.setEState("2");
+               repairService.insert(re);
+               te.setEState(2);
+               equipmentService.update(te);
+           }
+           result.put("flag", true);
+       } catch (Exception e) {
+           result.put("flag", false);
+       }
+       writeJSON2Response(result, response);
+   }
 
 
     @PostMapping(value = "/updateData")
